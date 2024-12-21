@@ -87,9 +87,11 @@ app.post("/getUnit", async (req, res) => {
       )._id;
     }
 
-    const unitData = await UnitModel.findOne({ _id: unitId }).populate({
-      path: "subUnits",
-    });
+    const unitData = await UnitModel.findOne({ _id: unitId })
+      .populate({
+        path: "subUnits",
+      })
+      .select("_id, name, subUnits");
 
     res.json({ data: unitData, playedId: playedSubUnitsId });
   } catch (error) {
